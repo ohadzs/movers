@@ -1,0 +1,8 @@
+state.json
+secret_config.py
+__pycache__/
+*.log
+*.tmp
+config.json
+eod.txt
+delay.txt

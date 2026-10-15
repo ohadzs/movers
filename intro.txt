@@ -1,0 +1,15 @@
+📉 Stocks monitor — updated rules
+
+Universe: every stock in SPY (S&P 500) + QQQ (Nasdaq-100) — 518 names.
+Filter: trading over $100 — 337 of them right now. It is checked against each stock's previous close, so the eligible list re-forms itself every day.
+Trigger: down 5% or more against that previous close.
+
+Two kinds of alert:
+
+• Live — during the US session, 16:30–23:00 Israel time. Prices are checked every minute; a name has to hold below −5% for 2 minutes before it fires, and it fires once per name per day.
+
+• Close — one summary right after the close, listing everything that actually finished the day down 5%+.
+
+Worth knowing before you act on these: we measured 180 real crossings over the last week, and only about half the names that dip below −5% intraday are still below it at the close. Waiting longer barely helps — 2 minutes and 3 minutes give the same hit rate. So read a live alert as "this is happening right now", not "this will end the day down".
+
+Expect ~7 names a day on average. Quiet days send nothing, a rough day can be 50+.

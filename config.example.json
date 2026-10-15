@@ -1,0 +1,10 @@
+{
+  "title": "SPY + QQQ",
+  "min_price": 100.0,
+  "drop_pct": 5.0,
+  "confirm_polls": 2,
+  "max_lines": 25,
+  "chat_id": "",
+  "enabled": true,
+  "owner_chat": ""
+}
