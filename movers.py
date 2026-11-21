@@ -445,6 +445,21 @@ def token():
     raise SystemExit("no telegram token (env TELEGRAM_BOT_TOKEN, secret_config.py, or ~/.telegram_bot_token)")
 
 
+def _log_sent(chat, text, src):
+    """Append to the shared log of every Telegram alert, ~/logs/telegram-sent.jsonl
+    (one JSON line per message, all senders on zima1). Never breaks a send."""
+    try:
+        import json as _j, os as _o, datetime as _d
+        p = _o.path.expanduser("~/logs/telegram-sent.jsonl")
+        _o.makedirs(_o.path.dirname(p), exist_ok=True)
+        with open(p, "a", encoding="utf-8") as f:
+            f.write(_j.dumps({"ts": _d.datetime.now().isoformat(timespec="seconds"),
+                              "src": src, "chat": str(chat), "text": text},
+                             ensure_ascii=False) + "\n")
+    except Exception:
+        pass
+
+
 def push(chat_id, text):
     if not chat_id:
         raise SystemExit("config.json has no chat_id — set it before pushing")
@@ -457,6 +472,7 @@ def push(chat_id, text):
         j = json.loads(r.read())
     if not j.get("ok"):
         raise SystemExit(f"telegram refused: {j}")
+    _log_sent(chat_id, text, "stock-eyal")
     return j
 
 
